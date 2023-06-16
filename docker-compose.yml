@@ -1,0 +1,52 @@
+version: "3"
+
+services:
+    # image project
+    app:
+        container_name: phonebook
+        build:
+            context: .
+            dockerfile: Dockerfile
+        restart: unless-stopped
+        volumes:
+            - ./:/var/www/
+        networks:
+            - app-network
+        depends_on:
+            - nginx
+
+    # nginx
+    nginx:
+        container_name: nginx
+        image: nginx:alpine
+        restart: unless-stopped
+        ports:
+            - "8003:80"
+        volumes:
+            - ./docker/nginx/:/etc/nginx/conf.d/
+            - ./:/var/www/
+        networks:
+            - app-network
+
+    # db mysql
+    mysql:
+        container_name: mysql
+        platform: linux/x86_64
+        image: mysql:latest
+        restart: unless-stopped
+        environment:
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+            MYSQL_USER: ${DB_USERNAME}
+        volumes:
+            - ./.docker/mysql/dbdata:/var/lib/mysql
+        ports:
+            - "3306:3306"
+        networks:
+          - app-network
+
+
+networks:
+    app-network:
+        driver: bridge
