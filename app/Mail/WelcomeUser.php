@@ -28,7 +28,7 @@ class WelcomeUser extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: 'phonebook@vexpenses.com',
+            from: config('mail.from.address'),
             to: $this->data['email'],
             subject: 'Boas Vindas!',
         );
@@ -40,7 +40,7 @@ class WelcomeUser extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'welcome_user',
+            view: 'welcome_user',
             with: [
                 'data' => $this->data
             ]

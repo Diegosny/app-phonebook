@@ -18,13 +18,17 @@ class UserController extends Controller
         $this->service = app(UserService::class);
     }
 
-    public function create(UserCreateRequest $request): JsonResponse
+    public function create(UserCreateRequest $request): UserResource
     {
-        return $this->service->userSaveService($request->all());
+        $response =  $this->service->userSaveService($request->all());
+
+        return new UserResource($response);
     }
 
-    public function login(UserLoginRequest $request): JsonResponse
+    public function login(UserLoginRequest $request): UserResource
     {
-        return $this->service->login($request->all());
+        $response =  $this->service->login($request->all());
+
+        return new UserResource($response);
     }
 }
