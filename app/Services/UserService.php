@@ -2,12 +2,12 @@
 
 namespace App\Services;
 
-use App\Http\Resources\UserResource;
+use App\Mail\WelcomeUser;
 use App\Repositories\UserRepository;
 use App\Traits\ResponseApiTrait;
-use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class UserService
 {
@@ -25,6 +25,8 @@ class UserService
         $token = $this->repository->save($data)
         ->createToken('user_token')->plainTextToken;
 
+        $this->sendEmail($data);
+
         return $this->sendResponse([
             'token' => $token
         ], 'Usuário criado com sucesso');
@@ -39,5 +41,13 @@ class UserService
         $token = Auth::user()->createToken('user_token')->plainTextToken;
 
         return $this->sendResponse(['token' => $token], 'Usuário logado com sucesso');
+    }
+
+    private function sendEmail(array $data): void
+    {
+        Mail::to(
+            data_get($data, 'email'),
+            data_get($data, 'name')
+        )->send(new WelcomeUser($data));
     }
 }
