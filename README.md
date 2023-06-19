@@ -1,40 +1,31 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Projeto Phonebook
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este projeto é para o desafio que me foi passado. Aqui estará toda documentação do mesmo.
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Docker:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Para instalar o projeto será necessario ter o docker em sua maquina.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- <a target="_blank" href="https://docs.docker.com/desktop/install/mac-install/"> Install macos </a> <br>
+- <a target="_blank" href="https://docs.docker.com/desktop/install/windows-install/"> Install windows </a> <br>
+- <a target="_blank" href="https://docs.docker.com/desktop/install/linux-install/"> Install linux </a> <br>
 
-## Learning Laravel
+## Rodando o projeto:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+``` docker compose up -d --build ```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+E já poderá acessar o projeto:
+ 
+- <a href="http://localhost:8003"> Aplicação </a> <br>
+- <a href="http://localhost:8025"> Mailtip </a> <br>
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Teste(TDD)
 
-## Laravel Sponsors
+Usei o <b> Desenvolvimento Orientado por Testes</b> (TDD)  como prática de começar o desenvolvimento a partir do teste <br>
+Para rodar os testes, rode: ``` docker exec -it phonebook ./vendor/bin/phpunit ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
+Link de referencia para o artigo do TDD: - **[Test Driven Development](https://www.ibm.com/garage/method/practices/code/practice_test_driven_development/)**
 - **[Vehikl](https://vehikl.com/)**
 - **[Tighten Co.](https://tighten.co)**
 - **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
