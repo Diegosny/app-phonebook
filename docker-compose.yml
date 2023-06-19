@@ -46,6 +46,39 @@ services:
         networks:
           - app-network
 
+    # queue
+    queue:
+        container_name: queue
+        image: bitnami/laravel:latest
+        restart: unless-stopped
+        command: "php artisan queue:work"
+        volumes:
+            - ./:/var/www/
+        depends_on:
+            app:
+                condition: service_started
+            redis:
+                condition: service_started
+        networks:
+            - app-network
+
+    # redis
+    redis:
+        container_name: redis
+        image: redis:latest
+        networks:
+            - app-network
+
+    #service e-mails
+    mailpit:
+        container_name: mailpit
+        image: axllent/mailpit
+        restart: unless-stopped
+        ports:
+            - "8025:8025"
+            - "1025:1025"
+        networks:
+            - app-network
 
 networks:
     app-network:

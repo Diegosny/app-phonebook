@@ -10,6 +10,6 @@ WORKDIR /var/www
 
 COPY . .
 
-EXPOSE 8000
+EXPOSE 8003
 
 RUN composer install
