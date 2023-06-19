@@ -20,27 +20,14 @@ class UserService
         $this->repository = app(UserRepository::class);
     }
 
-    public function userSaveService(array $data): JsonResponse
+    public function userSaveService(array $data): array
     {
         $token = $this->repository->save($data)
         ->createToken('user_token')->plainTextToken;
 
         $this->sendEmail($data);
 
-        return $this->sendResponse([
-            'token' => $token
-        ], 'Usuário criado com sucesso');
-    }
-
-    public function login(array $data): JsonResponse
-    {
-        if(! Auth::attempt($data)) {
-            return $this->sendError('Credenciais invalidas!', 422);
-        }
-
-        $token = Auth::user()->createToken('user_token')->plainTextToken;
-
-        return $this->sendResponse(['token' => $token], 'Usuário logado com sucesso');
+        return ['token' => $token];
     }
 
     private function sendEmail(array $data): void
@@ -49,5 +36,14 @@ class UserService
             data_get($data, 'email'),
             data_get($data, 'name')
         )->send(new WelcomeUser($data));
+    }
+
+    public function login(array $data): array
+    {
+        abort_if(! Auth::attempt($data), 422, 'Credenciais invalidas!');
+
+        return [
+           'token' => Auth::user()->createToken('user_token')->plainTextToken
+        ];
     }
 }
