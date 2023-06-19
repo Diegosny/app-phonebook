@@ -20,26 +20,24 @@ class UserService
         $this->repository = app(UserRepository::class);
     }
 
-    public function create(array $data): UserResource
+    public function userSaveService(array $data): JsonResponse
     {
-        $data['password'] = bcrypt($data['password']);
+        $token = $this->repository->save($data)
+        ->createToken('user_token')->plainTextToken;
 
-        $user =  $this->repository->save($data);
-
-        $user->token = $user->createToken('app_token')->plainTextToken;
-
-        return new UserResource($user);
+        return $this->sendResponse([
+            'token' => $token
+        ], 'Usuário criado com sucesso');
     }
 
-    public function login(array $data): JsonResponse|Authenticatable
+    public function login(array $data): JsonResponse
     {
-        if(! Auth::attempt($data)){
-            return $this->sendError('Não autorizado', 403);
+        if(! Auth::attempt($data)) {
+            return $this->sendError('Credenciais invalidas!', 422);
         }
 
-        $user = Auth::user();
-        $user->token =  $user->createToken('app_token')->plainTextToken;
+        $token = Auth::user()->createToken('user_token')->plainTextToken;
 
-        return $user;
+        return $this->sendResponse(['token' => $token], 'Usuário logado com sucesso');
     }
 }
