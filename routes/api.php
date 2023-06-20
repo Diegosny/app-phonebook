@@ -22,7 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::group(['prefix' => 'v1'], function () {
     Route::prefix('users')->group(function () {
-        Route::post('', [UserController::class, 'create']);
+        Route::post('/', [UserController::class, 'create']);
         Route::post('login', [UserController::class, 'login']);
     });
 });

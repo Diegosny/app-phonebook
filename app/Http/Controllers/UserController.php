@@ -6,21 +6,17 @@ use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserLoginRequest;
 use App\Http\Resources\UserResource;
 use App\Services\UserService;
-use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Http\JsonResponse;
 
 class UserController extends Controller
 {
-    public function __construct(
-        protected UserService $service
-    )
+    public function __construct(protected UserService $service)
     {
-        $this->service = app(UserService::class);
+        //
     }
 
     public function create(UserCreateRequest $request): UserResource
     {
-        $response =  $this->service->userSaveService($request->all());
+        $response =  $this->service->create($request->all());
 
         return new UserResource($response);
     }
