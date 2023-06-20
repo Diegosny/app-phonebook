@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Contact;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateContactRequest extends FormRequest
@@ -17,7 +18,15 @@ class UpdateContactRequest extends FormRequest
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'email' => 'required|email',
-            'phone' => 'required|phone|string|unique:contacts'
+            'phone' => ['required', 'phone', 'string', function ($attribute, $value, $fail) {
+                $contact = Contact::whereUserId(auth()->user()->id)
+                    ->wherePhone($value)
+                    ->exists();
+
+                if($contact) {
+                    $fail('Este número de telefone já está em sua agenda');
+                }
+            }],
         ];
     }
 
@@ -25,7 +34,6 @@ class UpdateContactRequest extends FormRequest
     {
         return [
             'phone.phone' => 'O número de telefone é inválido.',
-            'phone.unique' => 'Este número de telefone já está em uso.'
         ];
     }
 }
