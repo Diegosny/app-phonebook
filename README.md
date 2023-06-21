@@ -16,28 +16,28 @@ Para instalar o projeto será necessario ter o docker em sua maquina.
 
 - Copie o .env.example para um arquivo .env 
 ```
- cp .env.example .env
+cp .env.example .env
 ```
 
 - Rode o build do projeto:
 
 ```
- docker compose up -d --build 
+docker compose up -d --build 
  ```
 
 - Instalando pacotes: 
 ``` 
- docker exec phonebook composer install 
+docker exec phonebook composer install 
 ``` 
 
 - Rodar a chave para o projeto: 
 ```
-    docker exec phonebook php artisan key:generate 
+docker exec phonebook php artisan key:generate 
 ```
 
 - Rodar as migrate: 
 ```
-  docker exec phonebook php artisan migrate 
+docker exec phonebook php artisan migrate 
 ```
 
 E já poderá acessar o projeto:
@@ -62,11 +62,11 @@ Link de referencia para o artigo do TDD: - **[Test Driven Development](https://w
 
 <b>Criar um usuário: </b>
 
-- <h3> create: </h3> 
 ```
 POST - /api/v1/users
 ```
 
+Request:
 ``` 
 {
    "name": "teste",
@@ -74,17 +74,163 @@ POST - /api/v1/users
    "password": "12345678"
 }
 ```
+Response:
+```
+{
+    "data": {
+         "token": "7|eldB7LpB2HDQ2BnqpX8yg9WUJAZVM35Xk79vrbPh"
+    }	
+}
+```
 
 ###
 <b>Logando um usuário: </b>
-- <h3> login: </h3> 
+
 ```
 POST - /api/v1/users/login
 ```
 
+Request:
 ``` 
 {
    "email": "teste@gmail.com",
    "password": "12345678"
 }
+``` 
+Response:
 ```
+{
+    "data": {
+         "token": "7|eldB7LpB2HDQ2BnqpX8yg9WUJAZVM35Xk79vrbPh"
+    }	
+}
+```
+---
+<b> OBS: Necessário estar autenticado </b>
+<h3>Criar um contato: </h3> <br>
+
+```
+POST - /api/v1/contacts/
+```
+
+Request:
+``` 
+{
+    "first_name": "Ana",
+    "last_name": "Gomes",
+    "email": "ana@hotmail.com",
+    "phone": "33997313612"
+}
+```
+
+Response:
+```
+{
+    "data": [
+         {
+            "id": 1,
+            "first_name": "Ana",
+            "last_name": "Gomes",
+            "email": "ana@hotmail.com",
+            "phone": "33997313612",
+            "user_id": 1
+        },
+    ]
+  }
+```
+
+<h3>Listar os contatos</h3>
+```
+GET - /api/v1/contacts/
+```
+
+Response:
+``` 
+{
+    "data": [
+         {
+            "id": 1,
+            "first_name": "Ana",
+            "last_name": "Gomes",
+            "email": "ana@hotmail.com",
+            "phone": "33997313612",
+            "user_id": 1
+        },
+        {
+            "id": 2,
+            "first_name": "Lucas",
+            "last_name": "Souza",
+            "email": "souzalucas@hotmail.com",
+            "phone": "33997313897",
+            "user_id": 1
+        }
+    ]
+  }
+```
+
+<h3> Lista um contato </h3>
+
+```
+GET - /api/v1/contacts/{id}
+```
+
+Response:
+``` 
+{
+    "data": [
+         {
+            "id": 1,
+            "first_name": "Ana",
+            "last_name": "Gomes",
+            "email": "ana@hotmail.com",
+            "phone": "33997313612",
+            "user_id": 1
+        },
+    ]
+  }
+```
+
+<h3>Atualizar um contato</h3>
+```
+PUT - /api/v1/contacts/{id}
+```
+
+Request:
+``` 
+{
+    "first_name": "Ana",
+    "last_name": "Gomes De Olveira",
+    "email": "ana@hotmail.com",
+    "phone": "33997313612"
+}
+```
+
+Response:
+```
+{
+    "data": [
+         {
+            "id": 1,
+            "first_name": "Ana",
+            "last_name": "Gomes De Oliveira",
+            "email": "ana@hotmail.com",
+            "phone": "33997313612",
+            "user_id": 1
+        },
+    ]
+  }
+```
+
+<h3>Excluindo um contato </h3>
+
+```
+DELETE - /api/v1/contacts/{id}
+```
+
+Response:
+``` 
+{
+    "data": []
+ }
+```
+<span>Caso nao exista nenhum contato irá retornar um objeto vazio, como no exemplo</span>
