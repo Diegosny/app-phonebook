@@ -6,6 +6,7 @@ use App\Models\Contact;
 use App\Models\User;
 use App\Repositories\ContactRepository;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Throwable;
 
 class ContactService
 {
@@ -24,6 +25,7 @@ class ContactService
     public function show(Contact $contact, User $user): Contact
     {
         $contact = $this->repository->findUser($contact, $user);
+
         if(null === $contact) {
             throw new ModelNotFoundException();
         }
@@ -32,11 +34,12 @@ class ContactService
     }
 
     /**
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function update(array $data, Contact $contact, User $user): bool|Contact
     {
          $checkContact = $this->repository->update($data, $contact, $user);
+
          if(false === $checkContact) {
              throw new ModelNotFoundException();
          }
@@ -44,8 +47,15 @@ class ContactService
          return $contact->refresh();
     }
 
-    public function delete(Contact $contact): ?bool
+    public function delete(Contact $contact, User $user): ?bool
     {
-        return $this->repository->delete($contact);
+        $contact = $this->repository->delete($contact, $user);
+
+        if(false === $contact) {
+            throw new ModelNotFoundException();
+        }
+
+        return $contact;
     }
+
 }

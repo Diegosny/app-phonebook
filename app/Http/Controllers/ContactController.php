@@ -8,6 +8,7 @@ use App\Http\Resources\ContactResource;
 use App\Models\Contact;
 use App\Services\ContactService;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Throwable;
 
 class ContactController extends Controller
 {
@@ -36,7 +37,7 @@ class ContactController extends Controller
     }
 
     /**
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function update(UpdateContactRequest $request, Contact $contact): ContactResource
     {
@@ -47,7 +48,7 @@ class ContactController extends Controller
 
     public function destroy(Contact $contact): AnonymousResourceCollection
     {
-        $this->service->delete($contact);
+        $this->service->delete($contact, auth()->user());
 
         return ContactResource::collection(auth()->user()->contacts()->paginate());
     }

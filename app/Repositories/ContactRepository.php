@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Contact;
 use App\Models\User;
+use Throwable;
 
 class ContactRepository
 {
@@ -18,7 +19,7 @@ class ContactRepository
     }
 
     /**
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function update(array $data, Contact $contact, User $user): bool
     {
@@ -30,8 +31,13 @@ class ContactRepository
         return $contact->updateOrFail($data);
     }
 
-    public function delete(Contact $contact): ?bool
+    public function delete(Contact $contact, User $user): ?bool
     {
+        $contact = $this->findUser($contact, $user);
+        if(null === $contact) {
+            return  false;
+        }
+
         return $contact->delete();
     }
 }
