@@ -63,7 +63,7 @@ Link de referencia para o artigo do TDD: - **[Test Driven Development](https://w
 <p> Use a url base: <a href="http://localhost:8003">http://localhost:8003 </a> </p>
 
 
-<b>Criar um usuário: </b>
+1) <b>Criar um usuário: </b>
 
 ```
 POST - /api/v1/users
@@ -72,7 +72,7 @@ POST - /api/v1/users
 Request:
 ``` 
 {
-   "name": "teste",
+   "name": "teste",Listar os contatos
    "email": "teste@gmail.com",
    "password": "12345678"
 }
@@ -87,7 +87,7 @@ Response:
 ```
 
 ###
-<b>Logando um usuário: </b>
+2) <b>Logando um usuário: </b>
 
 ```
 POST - /api/v1/users/login
@@ -109,8 +109,9 @@ Response:
 }
 ```
 ---
-<b> OBS: Necessário estar autenticado </b>
-<h3>Criar um contato: </h3> <br>
+<b> OBS: Necessário estar autenticado </b> <br>
+
+3) <h3>Criar um contato: </h3> <br>
 
 ```
 POST - /api/v1/contacts/
@@ -174,7 +175,8 @@ Response:
 }
 ```
 
-<h3>Listar os contatos</h3>
+4) <h3>Listar os contatos</h3>
+
 ```
 GET - /api/v1/contacts/
 ```
@@ -227,7 +229,7 @@ Response:
 }
 ```
 
-<h3> Lista um contato </h3>
+5) <h3> Lista um contato </h3>
 
 ```
 GET - /api/v1/contacts/{id}
@@ -249,7 +251,8 @@ Response:
   }
 ```
 
-<h3>Atualizar um contato</h3>
+6) <h3>Atualizar um contato</h3>
+
 ```
 PUT - /api/v1/contacts/{id}
 ```
@@ -280,7 +283,7 @@ Response:
   }
 ```
 
-<h3>Excluindo um contato </h3>
+7) <h3>Excluindo um contato </h3>
 
 ```
 DELETE - /api/v1/contacts/{id}
