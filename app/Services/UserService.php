@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Jobs\SendEmailJob;
+use App\Jobs\TesteJob;
 use App\Repositories\UserRepository;
 use App\Traits\ResponseApiTrait;
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +29,7 @@ class UserService
 
     private function sendEmail(array $data): void
     {
-        (new SendEmailService())->sendEmail($data);
+        SendEmailJob::dispatch($data);
     }
 
     public function login(array $data): array

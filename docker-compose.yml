@@ -46,21 +46,6 @@ services:
         networks:
           - app-network
 
-    # queue
-    queue:
-        container_name: queue
-        image: bitnami/laravel:latest
-        restart: unless-stopped
-        command: "php artisan queue:work"
-        volumes:
-            - ./:/var/www/
-        depends_on:
-            app:
-                condition: service_started
-            redis:
-                condition: service_started
-        networks:
-            - app-network
 
     # redis
     redis:
