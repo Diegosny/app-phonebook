@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Contact;
+use App\Models\User;
 
 class ContactRepository
 {
@@ -11,11 +12,21 @@ class ContactRepository
         return Contact::create($data);
     }
 
+    public function findUser(Contact $contact, User $user): Contact|null
+    {
+        return $user->contacts()->find($contact->id);
+    }
+
     /**
      * @throws \Throwable
      */
-    public function update(array $data, Contact $contact): bool
+    public function update(array $data, Contact $contact, User $user): bool
     {
+        $contact = $this->findUser($contact, $user);
+        if(null === $contact) {
+            return  false;
+        }
+
         return $contact->updateOrFail($data);
     }
 

@@ -49,7 +49,10 @@ E já poderá acessar o projeto:
 ### Teste(TDD)
 
 Usei o <b> Desenvolvimento Orientado por Testes</b> (TDD)  como prática de começar o desenvolvimento a partir do teste <br>
-Para rodar os testes, rode: ``` docker exec -it phonebook ./vendor/bin/phpunit ```
+Para rodar os testes, rode: 
+``` 
+docker exec -it phonebook ./vendor/bin/phpunit 
+```
 
 Link de referencia para o artigo do TDD: - **[Test Driven Development](https://www.ibm.com/garage/method/practices/code/practice_test_driven_development/)**
 
@@ -127,16 +130,48 @@ Response:
 ```
 {
     "data": [
-         {
+      {
             "id": 1,
-            "first_name": "Ana",
-            "last_name": "Gomes",
-            "email": "ana@hotmail.com",
-            "phone": "33997313612",
+            "first_name": "Lucas",
+            "last_name": "Souza",
+            "email": "souzalucas@hotmail.com",
+            "phone": "33997313812",
             "user_id": 1
-        },
-    ]
-  }
+        }
+	],
+	"links": {
+		"first": "http:\/\/localhost:8003\/api\/v1\/contacts?page=1",
+		"last": "http:\/\/localhost:8003\/api\/v1\/contacts?page=1",
+		"prev": null,
+		"next": null
+	},
+	"meta": {
+		"current_page": 1,
+		"from": 1,
+		"last_page": 1,
+		"links": [
+			{
+				"url": null,
+				"label": "&laquo; Anterior",
+				"active": false
+			},
+			{
+				"url": "http:\/\/localhost:8003\/api\/v1\/contacts?page=1",
+				"label": "1",
+				"active": true
+			},
+			{
+				"url": null,
+				"label": "Próximo &raquo;",
+				"active": false
+			}
+		],
+		"path": "http:\/\/localhost:8003\/api\/v1\/contacts",
+		"per_page": 15,
+		"to": 1,
+		"total": 1
+	}
+}
 ```
 
 <h3>Listar os contatos</h3>
@@ -148,24 +183,48 @@ Response:
 ``` 
 {
     "data": [
-         {
+      {
             "id": 1,
-            "first_name": "Ana",
-            "last_name": "Gomes",
-            "email": "ana@hotmail.com",
-            "phone": "33997313612",
-            "user_id": 1
-        },
-        {
-            "id": 2,
             "first_name": "Lucas",
             "last_name": "Souza",
             "email": "souzalucas@hotmail.com",
-            "phone": "33997313897",
+            "phone": "33997313812",
             "user_id": 1
         }
-    ]
-  }
+	],
+	"links": {
+		"first": "http:\/\/localhost:8003\/api\/v1\/contacts?page=1",
+		"last": "http:\/\/localhost:8003\/api\/v1\/contacts?page=1",
+		"prev": null,
+		"next": null
+	},
+	"meta": {
+		"current_page": 1,
+		"from": 1,
+		"last_page": 1,
+		"links": [
+			{
+				"url": null,
+				"label": "&laquo; Anterior",
+				"active": false
+			},
+			{
+				"url": "http:\/\/localhost:8003\/api\/v1\/contacts?page=1",
+				"label": "1",
+				"active": true
+			},
+			{
+				"url": null,
+				"label": "Próximo &raquo;",
+				"active": false
+			}
+		],
+		"path": "http:\/\/localhost:8003\/api\/v1\/contacts",
+		"per_page": 15,
+		"to": 1,
+		"total": 1
+	}
+}
 ```
 
 <h3> Lista um contato </h3>
@@ -201,9 +260,9 @@ Request:
     "first_name": "Ana",
     "last_name": "Gomes De Olveira",
     "email": "ana@hotmail.com",
-    "phone": "33997313612"
 }
 ```
+<span>O campo phone não é obrigatorio quando for atualizar, no entanto caso seja passado, ele nao poderá ser o mesmo valor.</span>
 
 Response:
 ```
@@ -230,7 +289,49 @@ DELETE - /api/v1/contacts/{id}
 Response:
 ``` 
 {
-    "data": []
+	"data": [
+		{
+			"id": 2,
+			"first_name": "Lucas",
+			"last_name": "Souza",
+			"email": "souzalucas@hotmail.com",
+			"phone": "33997313812",
+			"user_id": 1
+		}
+	],
+	"links": {
+		"first": "http:\/\/localhost:8003\/api\/v1\/contacts\/1?page=1",
+		"last": "http:\/\/localhost:8003\/api\/v1\/contacts\/1?page=1",
+		"prev": null,
+		"next": null
+	},
+	"meta": {
+		"current_page": 1,
+		"from": 1,
+		"last_page": 1,
+		"links": [
+			{
+				"url": null,
+				"label": "&laquo; Anterior",
+				"active": false
+			},
+			{
+				"url": "http:\/\/localhost:8003\/api\/v1\/contacts\/1?page=1",
+				"label": "1",
+				"active": true
+			},
+			{
+				"url": null,
+				"label": "Próximo &raquo;",
+				"active": false
+			}
+		],
+		"path": "http:\/\/localhost:8003\/api\/v1\/contacts\/1",
+		"per_page": 15,
+		"to": 1,
+		"total": 1
+	}
+    }
  }
 ```
 <span>Caso nao exista nenhum contato irá retornar um objeto vazio, como no exemplo</span>

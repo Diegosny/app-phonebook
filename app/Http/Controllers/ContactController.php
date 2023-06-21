@@ -7,8 +7,7 @@ use App\Http\Requests\UpdateContactRequest;
 use App\Http\Resources\ContactResource;
 use App\Models\Contact;
 use App\Services\ContactService;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class ContactController extends Controller
 {
@@ -17,51 +16,39 @@ class ContactController extends Controller
         //
     }
 
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(): ContactResource
+    public function index(): AnonymousResourceCollection
     {
-        return new ContactResource(auth()->user()->contacts);
+        return ContactResource::collection(auth()->user()->contacts()->paginate());
     }
 
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(CreateContactRequest $request): ContactResource
+    public function store(CreateContactRequest $request): AnonymousResourceCollection
     {
-        $contact = $this->service->create($request->all());
+         $this->service->create($request->all());
 
-        return new ContactResource($contact);
+        return ContactResource::collection(auth()->user()->contacts()->paginate());
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Contact $contact): ContactResource
     {
+        $contact = $this->service->show($contact, auth()->user());
+
         return new ContactResource($contact);
     }
 
     /**
-     * Update the specified resource in storage.
      * @throws \Throwable
      */
     public function update(UpdateContactRequest $request, Contact $contact): ContactResource
     {
-        $contact = $this->service->update($request->all(), $contact);
+        $contact = $this->service->update($request->all(), $contact, auth()->user());
 
         return new ContactResource($contact);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Contact $contact): ContactResource
+    public function destroy(Contact $contact): AnonymousResourceCollection
     {
         $this->service->delete($contact);
 
-        return new  ContactResource(auth()->user()->contacts);
+        return ContactResource::collection(auth()->user()->contacts()->paginate());
     }
 }
