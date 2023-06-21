@@ -6,6 +6,7 @@ use App\Http\Requests\CreateContactRequest;
 use App\Http\Requests\UpdateContactRequest;
 use App\Http\Resources\ContactResource;
 use App\Models\Contact;
+use App\Models\User;
 use App\Services\ContactService;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Throwable;
@@ -24,7 +25,7 @@ class ContactController extends Controller
 
     public function store(CreateContactRequest $request): AnonymousResourceCollection
     {
-         $this->service->create($request->all());
+         $this->service->create($request->all(), auth()->user());
 
         return ContactResource::collection(auth()->user()->contacts()->paginate());
     }

@@ -30,16 +30,17 @@ class ContactTest extends TestCase
         $this->createUser();
 
         $response = $this->post('/api/v1/contacts', $this->dataContacts)
-        ->assertStatus(201);
+        ->assertStatus(200);
 
         $this->assertNotEmpty($response->json());
-        $this->assertEquals($this->user->id, $response->json()['data']['user_id']);
+        $this->assertEquals($this->user->id, $response->json()['data'][0]['user_id']);
     }
 
     public function test_view_only_contact()
     {
-        $this->createUser();
         $contact = $this->createContact(1)[0];
+
+        $this->actingAs($contact->user, 'sanctum');
 
         $response = $this->get("/api/v1/contacts/$contact->id")
         ->assertStatus(200);
@@ -50,8 +51,8 @@ class ContactTest extends TestCase
 
     public function test_update_contact()
     {
-        $this->createUser();
         $contact = $this->createContact(1)[0];
+        $this->actingAs($contact->user, 'sanctum');
 
         $data = $this->setAttributesContact();
 
@@ -64,8 +65,8 @@ class ContactTest extends TestCase
 
     public function test_delete_contact()
     {
-        $this->createUser();
         $contact = $this->createContact(1)[0];
+        $this->actingAs($contact->user, 'sanctum');
 
         $response = $this->delete("/api/v1/contacts/$contact->id")
         ->assertStatus(200);
@@ -76,8 +77,7 @@ class ContactTest extends TestCase
     protected function createUser(): void
     {
         $this->user = User::factory(1)
-            ->create()
-            ->first();
+            ->create()[0];
 
         $this->actingAs($this->user, 'sanctum');
     }

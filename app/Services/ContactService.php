@@ -15,9 +15,9 @@ class ContactService
         //
     }
 
-    public function create(array $data): Contact
+    public function create(array $data, User $user): Contact
     {
-        $data['user_id'] = auth()->user()->id;
+        $data['user_id'] = $user->id;
 
         return $this->repository->save($data);
     }
