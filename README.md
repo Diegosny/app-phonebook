@@ -281,4 +281,4 @@ Response:
 	}
  }
 ```
-<span>Caso nao exista nenhum contato irá retornar um objeto vazio, como no exemplo</span>
+<span>Caso nao exista nenhum contato irá retornar um objeto vazio.</span>
