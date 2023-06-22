@@ -4,9 +4,8 @@ services:
     # image project
     app:
         container_name: phonebook
-        build:
-            context: .
-            dockerfile: Dockerfile
+        build: .
+        image: phonebook
         restart: unless-stopped
         volumes:
             - ./:/var/www/
@@ -14,6 +13,18 @@ services:
             - app-network
         depends_on:
             - nginx
+
+    #queue
+    queue:
+        container_name: queue
+        image: phonebook
+        command: php artisan queue:work
+        volumes:
+            - ./:/var/www/
+        networks:
+            - app-network
+        depends_on:
+            - app
 
     # nginx
     nginx:
@@ -44,7 +55,7 @@ services:
         ports:
             - "3308:3306"
         networks:
-          - app-network
+            - app-network
 
 
     # redis

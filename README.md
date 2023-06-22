@@ -139,38 +139,19 @@ Response:
             "phone": "33997313812",
             "user_id": 1
         }
-	],
+    ],
 	"links": {
-		"first": "http:\/\/localhost:8003\/api\/v1\/contacts?page=1",
-		"last": "http:\/\/localhost:8003\/api\/v1\/contacts?page=1",
+		"first": "http:\/\/localhost:8003\/api\/v1\/contacts\/1?page=1",
+		"last": null,
 		"prev": null,
 		"next": null
 	},
 	"meta": {
 		"current_page": 1,
 		"from": 1,
-		"last_page": 1,
-		"links": [
-			{
-				"url": null,
-				"label": "&laquo; Anterior",
-				"active": false
-			},
-			{
-				"url": "http:\/\/localhost:8003\/api\/v1\/contacts?page=1",
-				"label": "1",
-				"active": true
-			},
-			{
-				"url": null,
-				"label": "Próximo &raquo;",
-				"active": false
-			}
-		],
-		"path": "http:\/\/localhost:8003\/api\/v1\/contacts",
+		"path": "http:\/\/localhost:8003\/api\/v1\/contacts\/1",
 		"per_page": 15,
-		"to": 1,
-		"total": 1
+		"to": 1
 	}
 }
 ```
@@ -195,36 +176,17 @@ Response:
         }
 	],
 	"links": {
-		"first": "http:\/\/localhost:8003\/api\/v1\/contacts?page=1",
-		"last": "http:\/\/localhost:8003\/api\/v1\/contacts?page=1",
+		"first": "http:\/\/localhost:8003\/api\/v1\/contacts\/1?page=1",
+		"last": null,
 		"prev": null,
 		"next": null
 	},
 	"meta": {
 		"current_page": 1,
 		"from": 1,
-		"last_page": 1,
-		"links": [
-			{
-				"url": null,
-				"label": "&laquo; Anterior",
-				"active": false
-			},
-			{
-				"url": "http:\/\/localhost:8003\/api\/v1\/contacts?page=1",
-				"label": "1",
-				"active": true
-			},
-			{
-				"url": null,
-				"label": "Próximo &raquo;",
-				"active": false
-			}
-		],
-		"path": "http:\/\/localhost:8003\/api\/v1\/contacts",
+		"path": "http:\/\/localhost:8003\/api\/v1\/contacts\/1",
 		"per_page": 15,
-		"to": 1,
-		"total": 1
+		"to": 1
 	}
 }
 ```
@@ -263,6 +225,7 @@ Request:
     "first_name": "Ana",
     "last_name": "Gomes De Olveira",
     "email": "ana@hotmail.com",
+    
 }
 ```
 <span>O campo phone não é obrigatorio quando for atualizar, no entanto caso seja passado, ele nao poderá ser o mesmo valor.</span>
@@ -302,39 +265,20 @@ Response:
 			"user_id": 1
 		}
 	],
+	],
 	"links": {
 		"first": "http:\/\/localhost:8003\/api\/v1\/contacts\/1?page=1",
-		"last": "http:\/\/localhost:8003\/api\/v1\/contacts\/1?page=1",
+		"last": null,
 		"prev": null,
 		"next": null
 	},
 	"meta": {
 		"current_page": 1,
 		"from": 1,
-		"last_page": 1,
-		"links": [
-			{
-				"url": null,
-				"label": "&laquo; Anterior",
-				"active": false
-			},
-			{
-				"url": "http:\/\/localhost:8003\/api\/v1\/contacts\/1?page=1",
-				"label": "1",
-				"active": true
-			},
-			{
-				"url": null,
-				"label": "Próximo &raquo;",
-				"active": false
-			}
-		],
 		"path": "http:\/\/localhost:8003\/api\/v1\/contacts\/1",
 		"per_page": 15,
-		"to": 1,
-		"total": 1
+		"to": 1
 	}
-    }
  }
 ```
 <span>Caso nao exista nenhum contato irá retornar um objeto vazio, como no exemplo</span>
