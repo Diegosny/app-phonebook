@@ -18,6 +18,7 @@ services:
     queue:
         container_name: queue
         image: phonebook
+        restart: unless-stopped
         command: php artisan queue:work
         volumes:
             - ./:/var/www/
